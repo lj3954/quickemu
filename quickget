@@ -127,7 +127,7 @@ function validate_release() {
   esac
 
   RELEASES=$(${RELEASE_GENERATOR})
-  if [[ "${RELEASES}" != *"${RELEASE}"* ]]; then
+  if [[ ! " ${RELEASES[*]} " =~ " ${RELEASE} " ]]; then
       echo -e "ERROR! ${DISPLAY_NAME} ${RELEASE} is not a supported release.\n"
       echo -n "${RELEASES}"
       exit 1
@@ -875,6 +875,15 @@ function releases_windows() {
     echo 8 10 11
 }
 
+function languages_windows() {
+    if [ -z "${RELEASE}" ]; then
+        read -p "Enter a release to find available languages: " RELEASE
+        validate_release releases_windows 
+    fi
+    local LANGUAGES="$(download_windows "${RELEASE}" --find-languages)"
+    echo -e "\nLanguages (OPTIONAL): ${LANGUAGES}"
+}
+
 function releases_xerolinux() {
     echo kde
 }
@@ -1053,6 +1062,8 @@ function make_vm_config() {
 
     if [ -n "${EDITION}" ]; then
         CONF_FILE="${OS}-${RELEASE}-${EDITION}.conf"
+    elif [ -n "${LANGUAGE}" ]; then
+        CONF_FILE="${OS}-${RELEASE}-${LANGUAGE// /-}.conf"
     else
         CONF_FILE="${OS}-${RELEASE}.conf"
     fi
@@ -2544,7 +2555,7 @@ function download_windows() {
     #
     # If this function in Mido fails to work for you then please test with the Fido script before creating an issue because we basically just copy what Fido does exactly:
     # https://github.com/pbatard/Fido
-
+    
     # Either 8, 10, or 11
     local windows_version="$1"
 
@@ -2572,7 +2583,7 @@ function download_windows() {
     # tr: Filter for only numerics to prevent HTTP parameter injection
     # head -c was recently added to POSIX: https://austingroupbugs.net/view.php?id=407
     local product_edition_id="$(echo "$iso_download_page_html" | grep -Eo '<option value="[0-9]+">Windows' | cut -d '"' -f 2 | head -n 1 | tr -cd '0-9' | head -c 16)"
-    echo " - Product edition ID: $product_edition_id"
+    # echo " - Product edition ID: $product_edition_id"
 
     # Permit Session ID
     # "org_id" is always the same value
@@ -2595,10 +2606,16 @@ function download_windows() {
     }
 
     # Limit untrusted size for input validation
-    language_skuid_table_html="$(echo "$language_skuid_table_html" | head -c 10240)"
+    language_skuid_table_html="$(echo "$language_skuid_table_html" | head -c 10240 | tr -d '()')"
+
+    if [ "${2}" == "--find-languages" ]; then
+        echo "$language_skuid_table_html" | grep -o -P '(?<=&quot;}">).*(?=</option>)' | tr '\n' ' '
+        return 0
+    fi
+
     # tr: Filter for only alphanumerics or "-" to prevent HTTP parameter injection
-    local sku_id="$(echo "$language_skuid_table_html" | grep "English (United States)" | sed 's/&quot;//g' | cut -d ',' -f 1  | cut -d ':' -f 2 | tr -cd '[:alnum:]-' | head -c 16)"
-    echo " - SKU ID: $sku_id"
+    local sku_id="$(echo "$language_skuid_table_html" | grep "$LANGUAGE" | sed 's/&quot;//g' | cut -d ',' -f 1  | cut -d ':' -f 2 | tr -cd '[:alnum:]-' | head -c 16)"
+    # echo " - SKU ID: $sku_id"
 
     # Get ISO download link
     # If any request is going to be blocked by Microsoft it's always this last one (the previous requests always seem to succeed)
@@ -2610,6 +2627,12 @@ function download_windows() {
     }
 
     local failed=0
+
+    if [ "${LANGUAGE}" == "English United States" ]; then
+        LANGUAGE="English"
+    fi
+
+    local HASH=$(echo "$iso_download_link_html" | sed 's/<tr><td>/\n<tr><td>/g' | tr -d '()' | grep "$LANGUAGE  64-bit" | grep -o -P '(?<=</td><td>).*(?=</td></tr>)')
 
     # Limit untrusted size for input validation
     iso_download_link_html="$(echo "$iso_download_link_html" | head -c 4096)"
@@ -2627,7 +2650,7 @@ function download_windows() {
 
     if [ ${failed} -eq 1 ]; then
         echo " - Manually download the Windows ${windows_version} ISO using a web browser from: ${url}"
-        echo " - Save the downloaded ISO to: $(realpath ${VM_PATH})"
+        echo " - Save the downloaded ISO to: $(realpath "${VM_PATH}")"
         echo " - Update the config file to reference the downloaded ISO: ./${VM_PATH}.conf"
         echo " - Continuing with the VM creation process..."
         return 1
@@ -2649,6 +2672,7 @@ function download_windows() {
     # Download ISO
     FILE_NAME="$(echo "$iso_download_link" | cut -d'?' -f1 | cut -d'/' -f5)"
     web_get "$iso_download_link" "${VM_PATH}" "${FILE_NAME}"
+    check_hash "${FILE_NAME}" "${HASH}"
 }
 
 function get_windows() {
@@ -2758,29 +2782,65 @@ else
     exit 1
 fi
 
-if [[ ! $(os_support) =~ ${OS} ]]; then
+if [[ ! $(os_support) =~ " ${OS} " ]]; then
     echo -e "ERROR! ${OS} is not a supported OS.\n"
     os_support
     exit 1
 fi
 
-if [ -n "${2}" ]; then
-    RELEASE="${2,,}"
+if [ -n "${2}" ] || [ $(releases_"${OS}" | wc -w) == 1 ]; then
+    if [ -z "${2}" ]; then
+        RELEASE=$(releases_"${OS}" | head -n 1)
+    else
+        RELEASE="${2,,}"
+    fi
     VM_PATH="${OS}-${RELEASE}"
 
+    if [ "${OS}" == "windows" ]; then
+        validate_release releases_windows
+        if [ -n "${3}" ]; then
+            LANGUAGES=($(languages_windows))
+            if [ -n "${5}" ]; then
+                LANGUAGE="${3} ${4} ${5}"
+            elif [ -n "${4}" ]; then
+                LANGUAGE="${3} ${4}"
+            else
+                LANGUAGE="${3}"
+            fi
+            if [ "${LANGUAGE}" == "English" ]; then
+                LANGUAGE="English United States"
+            fi
+            if [[ ! " ${LANGUAGES[*]} " =~ " ${LANGUAGE} " ]]; then
+                echo -e "ERROR! ${LANGUAGE} is not a supported language:\n"
+                for LANGUAGE in "${LANGUAGES[@]}"; do
+                  echo -n "${LANGUAGE} "
+                done
+                exit 1
+            fi
+            VM_PATH="${OS}-${RELEASE}-${LANGUAGE// /-}"
+        else
+            LANGUAGE="English United States"
+        fi
+        get_windows
     # If the OS has an editions_() function, use it.
-    if [[ $(type -t "editions_${OS}") == function ]]; then
+    elif [[ $(type -t "editions_${OS}") == function ]]; then
+        validate_release "releases_${OS}"
         EDITIONS=($(editions_${OS}))
         EDITION=${EDITIONS[0]}
         if [ -n "${3}" ]; then
             EDITION="${3}"
-            if [[ ! ${EDITIONS[*]} =~ ${EDITION} ]]; then
+            if [[ ! " ${EDITIONS[*]} " =~ " ${EDITION} " ]]; then
                 echo -e "ERROR! ${EDITION} is not a supported $(pretty_name "${OS}") edition:\n"
                 for EDITION in "${EDITIONS[@]}"; do
                   echo -n "${EDITION} "
                 done
                 exit 1
             fi
+        fi
+        if [[ -z ${3} ]]; then
+            echo -en "ERROR! You must specify an edition.\n - Editions: "
+            editions_"${OS}"
+            exit 1
         fi
 
         # Handle odd missing fedora cominations
@@ -2803,7 +2863,6 @@ if [ -n "${2}" ]; then
 
 
         VM_PATH="${OS}-${RELEASE}-${EDITION}"
-        validate_release "releases_${OS}"
         create_vm "$("get_${OS}" "${EDITION}")"
     elif [ "${OS}" == "macos" ]; then
         # macOS doesn't use create_vm()
@@ -2822,10 +2881,6 @@ if [ -n "${2}" ]; then
         # deepin doesn't use create_vm()
         validate_release releases_deepin
         get_deepin
-    elif [ "${OS}" == "windows" ]; then
-        # Windows doesn't use create_vm()
-        validate_release releases_windows
-        get_windows
     else
         validate_release "releases_${OS}"
         create_vm "$("get_${OS}")"
@@ -2845,7 +2900,11 @@ else
         echo -n " - Releases: "
         releases_ubuntu | sed -Ee 's/eol-\S+//g' # hide eol releases
         ;;
-
+      *windows*)
+        echo -n " - Releases: "
+        releases_windows
+        languages_windows
+        ;;
       *)
         echo -n " - Releases: "
         releases_"${OS}"
