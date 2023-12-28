@@ -875,13 +875,11 @@ function releases_windows() {
     echo 8 10 11
 }
 
-function languages_windows() {
+function editions_windows() {
     if [ -z "${RELEASE}" ]; then
-        read -p "Enter a release to find available languages: " RELEASE
-        validate_release releases_windows 
+        RELEASE="11"
     fi
-    local LANGUAGES="$(download_windows "${RELEASE}" --find-languages)"
-    echo -e "\nLanguages (OPTIONAL): ${LANGUAGES}"
+    download_windows "${RELEASE}" --find-languages
 }
 
 function releases_xerolinux() {
@@ -1062,8 +1060,6 @@ function make_vm_config() {
 
     if [ -n "${EDITION}" ]; then
         CONF_FILE="${OS}-${RELEASE}-${EDITION}.conf"
-    elif [ -n "${LANGUAGE}" ]; then
-        CONF_FILE="${OS}-${RELEASE}-${LANGUAGE// /-}.conf"
     else
         CONF_FILE="${OS}-${RELEASE}.conf"
     fi
@@ -2609,12 +2605,12 @@ function download_windows() {
     language_skuid_table_html="$(echo "$language_skuid_table_html" | head -c 10240 | tr -d '()')"
 
     if [ "${2}" == "--find-languages" ]; then
-        echo "$language_skuid_table_html" | grep -o -P '(?<=&quot;}">).*(?=</option>)' | tr '\n' ' '
+        echo "$language_skuid_table_html" | grep -o -P '(?<=&quot;}">).*(?=</option>)' | tr ' ' '-' | tr '\n' ' '
         return 0
     fi
 
     # tr: Filter for only alphanumerics or "-" to prevent HTTP parameter injection
-    local sku_id="$(echo "$language_skuid_table_html" | grep "$LANGUAGE" | sed 's/&quot;//g' | cut -d ',' -f 1  | cut -d ':' -f 2 | tr -cd '[:alnum:]-' | head -c 16)"
+    local sku_id="$(echo "$language_skuid_table_html" | grep "${EDITION//-/ }" | sed 's/&quot;//g' | cut -d ',' -f 1  | cut -d ':' -f 2 | tr -cd '[:alnum:]-' | head -c 16)"
     # echo " - SKU ID: $sku_id"
 
     # Get ISO download link
@@ -2628,11 +2624,11 @@ function download_windows() {
 
     local failed=0
 
-    if [ "${LANGUAGE}" == "English United States" ]; then
-        LANGUAGE="English"
+    if [ "${EDITION}" == "English-United-States" ]; then
+        EDITION="English"
     fi
 
-    local HASH=$(echo "$iso_download_link_html" | sed 's/<tr><td>/\n<tr><td>/g' | tr -d '()' | grep "$LANGUAGE  64-bit" | grep -o -P '(?<=</td><td>).*(?=</td></tr>)')
+    local HASH=$(echo "$iso_download_link_html" | sed 's/<tr><td>/\n<tr><td>/g' | tr -d '()' | grep "$EDITION  64-bit" | grep -o -P '(?<=</td><td>).*(?=</td></tr>)')
 
     # Limit untrusted size for input validation
     iso_download_link_html="$(echo "$iso_download_link_html" | head -c 4096)"
@@ -2799,27 +2795,27 @@ if [ -n "${2}" ] || [ $(releases_"${OS}" | wc -w) == 1 ]; then
     if [ "${OS}" == "windows" ]; then
         validate_release releases_windows
         if [ -n "${3}" ]; then
-            LANGUAGES=($(languages_windows))
+            EDITIONS=($(editions_windows))
             if [ -n "${5}" ]; then
-                LANGUAGE="${3} ${4} ${5}"
+                EDITION="${3}-${4}-${5}"
             elif [ -n "${4}" ]; then
-                LANGUAGE="${3} ${4}"
+                EDITION="${3}-${4}"
             else
-                LANGUAGE="${3}"
+                EDITION="${3}"
             fi
-            if [ "${LANGUAGE}" == "English" ]; then
-                LANGUAGE="English United States"
+            if [ "${EDITION}" == "English" ]; then
+                EDITION="English-United-States"
             fi
-            if [[ ! " ${LANGUAGES[*]} " =~ " ${LANGUAGE} " ]]; then
-                echo -e "ERROR! ${LANGUAGE} is not a supported language:\n"
-                for LANGUAGE in "${LANGUAGES[@]}"; do
-                  echo -n "${LANGUAGE} "
+            if [[ ! " ${EDITIONS[*]} " =~ " ${EDITION} " ]]; then
+                echo -e "ERROR! ${EDITION} is not a supported windows "${RELEASE}" language:\n"
+                for EDITION in "${EDITIONS[@]}"; do
+                  echo -n "${EDITION} "
                 done
                 exit 1
             fi
-            VM_PATH="${OS}-${RELEASE}-${LANGUAGE// /-}"
+            VM_PATH="${OS}-${RELEASE}-${EDITION}"
         else
-            LANGUAGE="English United States"
+            EDITION="English-United-States"
         fi
         get_windows
     # If the OS has an editions_() function, use it.
@@ -2836,8 +2832,7 @@ if [ -n "${2}" ] || [ $(releases_"${OS}" | wc -w) == 1 ]; then
                 done
                 exit 1
             fi
-        fi
-        if [[ -z ${3} ]]; then
+        else
             echo -en "ERROR! You must specify an edition.\n - Editions: "
             editions_"${OS}"
             exit 1
@@ -2903,7 +2898,8 @@ else
       *windows*)
         echo -n " - Releases: "
         releases_windows
-        languages_windows
+        echo -n " - Editions: "
+        editions_windows
         ;;
       *)
         echo -n " - Releases: "
