@@ -876,10 +876,15 @@ function releases_windows() {
 }
 
 function editions_windows() {
-    if [ -z "${RELEASE}" ]; then
-        RELEASE="11"
+    if [ "${RELEASE}" == 8 ]; then
+        echo Arabic Brazilian-Portuguese Bulgarian Chinese-Simplified Chinese-Traditional Chinese-Traditional-Hong-Kong Croatian Czech \
+        Danish Dutch English-United-States English-International Estonian Finnish French German Greek Hebrew Hungarian Italian Japanese \
+        Latvian Lithuanian Norwegian Polish Portuguese Romanian Russian Serbian-Latin Slovak Slovenian Spanish Swedish Thai Turkish Ukrainian
+    else
+        echo Arabic Brazilian-Portuguese Bulgarian Chinese-Simplified Chinese-Traditional Croatian Czech Danish Dutch English \
+        English-International Estonian Finnish French French-Canadian German Greek Hebrew Hungarian Italian Japanese Korean Latvian \
+        Lithuanian Norwegian Polish Portuguese Romanian Russian Serbian-Latin Slovak Slovenian Spanish Spanish-Mexico Swedish Thai Turkish Ukrainian
     fi
-    download_windows "${RELEASE}" --find-languages
 }
 
 function releases_xerolinux() {
@@ -2750,8 +2755,6 @@ if ((BASH_VERSINFO[0] < 4)); then
     exit 1
 fi
 
-LANGS=()
-
 if [ -n "${1}" ]; then
     OS="${1,,}"
     if [ "${OS}" == "list" ] || [ "${OS}" == "list_csv" ]; then
@@ -2778,48 +2781,18 @@ else
     exit 1
 fi
 
-if [[ ! $(os_support) =~ " ${OS} " ]]; then
+if [[ ! $(os_support) =~ " ${OS}" ]] && [[ ! $(os_support) =~ "${OS}" ]]; then
     echo -e "ERROR! ${OS} is not a supported OS.\n"
     os_support
     exit 1
 fi
 
-if [ -n "${2}" ] || [ $(releases_"${OS}" | wc -w) == 1 ]; then
-    if [ -z "${2}" ]; then
-        RELEASE=$(releases_"${OS}" | head -n 1)
-    else
-        RELEASE="${2,,}"
-    fi
+if [ -n "${2}" ]; then
+    RELEASE="${2,,}"
     VM_PATH="${OS}-${RELEASE}"
 
-    if [ "${OS}" == "windows" ]; then
-        validate_release releases_windows
-        if [ -n "${3}" ]; then
-            EDITIONS=($(editions_windows))
-            if [ -n "${5}" ]; then
-                EDITION="${3}-${4}-${5}"
-            elif [ -n "${4}" ]; then
-                EDITION="${3}-${4}"
-            else
-                EDITION="${3}"
-            fi
-            if [ "${EDITION}" == "English" ]; then
-                EDITION="English-United-States"
-            fi
-            if [[ ! " ${EDITIONS[*]} " =~ " ${EDITION} " ]]; then
-                echo -e "ERROR! ${EDITION} is not a supported windows "${RELEASE}" language:\n"
-                for EDITION in "${EDITIONS[@]}"; do
-                  echo -n "${EDITION} "
-                done
-                exit 1
-            fi
-            VM_PATH="${OS}-${RELEASE}-${EDITION}"
-        else
-            EDITION="English-United-States"
-        fi
-        get_windows
     # If the OS has an editions_() function, use it.
-    elif [[ $(type -t "editions_${OS}") == function ]]; then
+    if [[ $(type -t "editions_${OS}") == function ]]; then
         validate_release "releases_${OS}"
         EDITIONS=($(editions_${OS}))
         EDITION=${EDITIONS[0]}
@@ -2858,7 +2831,11 @@ if [ -n "${2}" ] || [ $(releases_"${OS}" | wc -w) == 1 ]; then
 
 
         VM_PATH="${OS}-${RELEASE}-${EDITION}"
-        create_vm "$("get_${OS}" "${EDITION}")"
+        if [ "${OS}" == "windows" ]; then
+            get_windows
+        else
+            create_vm "$("get_${OS}" "${EDITION}")"
+        fi
     elif [ "${OS}" == "macos" ]; then
         # macOS doesn't use create_vm()
         validate_release releases_macos
@@ -2880,11 +2857,14 @@ if [ -n "${2}" ] || [ $(releases_"${OS}" | wc -w) == 1 ]; then
         validate_release "releases_${OS}"
         create_vm "$("get_${OS}")"
     fi
+elif [ "${open_distro_homepage}" == 'on' ]; then
+    HOMEPAGE=$(os_homepages ${OS})
+    open_url "${HOMEPAGE}" && exit 0
+elif [ $(releases_${OS} | wc -w) -eq 1 ] && [[ ! $(type -t "editions_${OS}") == function ]]; then
+    RELEASE=$(releases_${OS})
+    VM_PATH="${OS}"
+    create_vm "$("get_${OS}")"
 else
-    if [ "${open_distro_homepage}" == 'on' ]; then
-        HOMEPAGE=$(os_homepages ${OS})
-        open_url "${HOMEPAGE}" && exit 0
-    fi
     echo "ERROR! You must specify a release."
     case ${OS} in
       *ubuntu-server*)
@@ -2894,12 +2874,6 @@ else
       *ubuntu*)
         echo -n " - Releases: "
         releases_ubuntu | sed -Ee 's/eol-\S+//g' # hide eol releases
-        ;;
-      *windows*)
-        echo -n " - Releases: "
-        releases_windows
-        echo -n " - Editions: "
-        editions_windows
         ;;
       *)
         echo -n " - Releases: "
