@@ -2611,6 +2611,9 @@ function download_windows() {
 
     local failed=0
 
+    # Find sha256sum from Microsoft's download page
+    local HASH=$(echo "$iso_download_link_html" | sed 's/<tr><td>/\n<tr><td>/g' | grep "English  64-bit" | grep -o -P '(?<=</td><td>).*(?=</td></tr>)')
+
     # Limit untrusted size for input validation
     iso_download_link_html="$(echo "$iso_download_link_html" | head -c 4096)"
 
@@ -2649,6 +2652,7 @@ function download_windows() {
     # Download ISO
     FILE_NAME="$(echo "$iso_download_link" | cut -d'?' -f1 | cut -d'/' -f5)"
     web_get "$iso_download_link" "${VM_PATH}" "${FILE_NAME}"
+    check_hash "${FILE_NAME}" "${HASH}"
 }
 
 function get_windows() {
