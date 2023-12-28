@@ -1068,19 +1068,18 @@ function make_vm_config() {
         truenas*)
             GUEST="truenas"
             IMAGE_TYPE="iso";;
-        windows|windows-server)
+        windows)
             GUEST="windows"
+            IMAGE_TYPE="iso";;
+        windows-server)
+            GUEST="windows-server"
             IMAGE_TYPE="iso";;
         *)
             GUEST="linux"
             IMAGE_TYPE="iso";;
     esac
 
-    if [ -n "${EDITION}" ]; then
-        CONF_FILE="${OS}-${RELEASE}-${EDITION}.conf"
-    else
-        CONF_FILE="${OS}-${RELEASE}.conf"
-    fi
+    CONF_FILE="${VM_PATH}.conf"
 
     if [ ! -e "${CONF_FILE}" ]; then
         echo "Making ${CONF_FILE}"
@@ -2558,6 +2557,7 @@ handle_curl_error() {
 
 function download_windows-server() {
     # Download enterprise evaluation windows versions
+    OS="windows-server"
     local windows_version="$1"
     local enterprise_type="$2"
 
