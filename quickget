@@ -5,7 +5,7 @@ export LC_ALL=C
 #
 #    1. Update os_support() - add new OS, all lowercase
 #    2. Update pretty_name() - add a pretty name for new OS *only if the catch all is not suitable*
-#    3. Update os_homepages() - add a homepage for new OS
+#    3. Update os_homepage() - add a homepage for new OS
 #    4. Create a releases_newos() generator (required) outputs the current supported release versions
 #    5. Create a editions_newos() generator (optional) outputs the editions if new OS has multiple flavours/editions
 #    6. Update make_vm_config() - add any *required* new OS tweaks
@@ -36,7 +36,7 @@ if [ "${1}" == '--test-iso-url' ] || [ "${1}" == '-t' ]; then
     else
         set -- "$2"
     fi
-elif [ "${1}" == '--show-iso-url' ] || [ "${1}" ==  '-s' ]; then
+elif [ "${1}" == '--show-iso-url' ] || [ "${1}" ==  '-u' ]; then
     show_iso_url="on"
     if [ -n "$4" ]; then
         set -- "$2" "$3" "$4"
@@ -48,6 +48,18 @@ elif [ "${1}" == '--show-iso-url' ] || [ "${1}" ==  '-s' ]; then
 elif [ "${1}" == '--open-distro-homepage' ] || [ "${1}" == '-o' ]; then
     open_distro_homepage="on"
     set -- "$2"
+elif [ "${1}" == '--show-distro-homepage' ] || [ "${1}" == '-s' ]; then
+    show_distro_homepage="on"
+    set -- "$2"
+elif [ "${1}" == '--download-iso'  ] || [ "${1}" == '-d' ]; then
+    download_iso="on"
+    if [ -n "$4" ]; then
+        set -- "$2" "$3" "$4"
+    elif [ -n "$3" ]; then
+        set -- "$2" "$3"
+    else
+        set -- "$2"
+    fi
 fi
 
 function pretty_name() {
@@ -280,7 +292,7 @@ function os_support() {
     zorin
 }
 
-function os_homepages(){
+function os_homepage(){
     local SIMPLE_NAME=""
     local HOMEPAGE=""
     SIMPLE_NAME="${1}"
@@ -390,11 +402,11 @@ function editions_android() {
 }
 
 function releases_antix() {
-	echo 21 22 23
+    echo 21 22 23
 }
 
 function editions_antix() {
-	echo net-sysv core-sysv base-sysv full-sysv net-runit core-runit base-runit full-runit
+    echo net-sysv core-sysv base-sysv full-sysv net-runit core-runit base-runit full-runit
 }
 
 function releases_archlinux() {
@@ -597,7 +609,7 @@ function releases_kolibrios() {
 }
 
 function releases_linuxlite() {
-	echo 6.0 6.2 6.4 6.6
+    echo 6.0 6.2 6.4 6.6
 }
 
 function releases_linuxmint(){
@@ -756,11 +768,11 @@ function editions_solus() {
 }
 
 function releases_spiral() {
-	echo latest
+    echo latest
 }
 
 function editions_spiral() {
-	echo Plasma XFCE Mate LXQt Gnome Budgie Cinnamon Builder
+    echo Plasma XFCE Mate LXQt Gnome Budgie Cinnamon Builder
 }
 
 function releases_tails() {
@@ -910,7 +922,11 @@ function check_hash() {
     local iso=""
     local hash=""
     local hash_algo=""
-    iso="${VM_PATH}/${1}"
+    if [ "${download_iso}" == "on" ]; then
+        iso="${1}"
+    else
+        iso="${VM_PATH}/${1}"
+    fi
     hash="${2}"
 
     # Guess the hash algorithm by the hash length
@@ -953,16 +969,18 @@ function web_get() {
         fi
     done
 
-	# Test mode for ISO
-	if [ "${show_iso_url}" == 'on' ]; then
-	    echo "${URL}"
-	    exit 0
+    # Test mode for ISO
+    if [ "${show_iso_url}" == 'on' ]; then
+        echo "${URL}"
+        exit 0
     elif [ "${test_iso_url}" == 'on' ]; then
-	    wget --spider "${URL}"
-	    exit 0
+        wget --spider "${URL}"
+        exit 0
+    elif [ "${download_iso}" == 'on' ]; then
+        DIR="$(pwd)"
     fi
 
-    if ! mkdir -p "${DIR}" 2>/dev/null; then
+    if [ "${DIR}" != "$(pwd)" ] && ! mkdir -p "${DIR}" 2>/dev/null; then
       echo "ERROR! Unable to create directory ${DIR}"
       exit 1
     fi
@@ -995,13 +1013,13 @@ function zsync_get() {
     local OUT=""
     local URL="${1}"
 
-	# Test mode for ISO
-	if [ "${show_iso_url}" == 'on' ]; then
-	    echo "${URL}"
-	    exit 0
+    # Test mode for ISO
+    if [ "${show_iso_url}" == 'on' ]; then
+        echo "${URL}"
+        exit 0
     elif [ "${test_iso_url}" == 'on' ]; then
-	    wget --spider "${URL}"
-	    exit 0
+        wget --spider "${URL}"
+        exit 0
     elif command -v zsync &>/dev/null; then
         if [ -n "${3}" ]; then
             OUT="${3}"
@@ -1041,6 +1059,10 @@ function make_vm_config() {
     local IMAGE_TYPE=""
     local GUEST=""
     local SEC_BOOT=""
+
+    if [ "${download_iso}" == "on" ]; then
+        exit 0
+    fi
 
     IMAGE_FILE="${1}"
     ISO_FILE="${2}"
@@ -2049,13 +2071,13 @@ function get_solus() {
 }
 
 function get_spiral() {
-	local EDITION="${1:-}"
-	local HASH=""
-	local ISO="SpiralLinux_${EDITION}_12.231005_x86-64.iso"
-	local URL="https://sourceforge.net/projects/spirallinux/files/12.231005"
+    local EDITION="${1:-}"
+    local HASH=""
+    local ISO="SpiralLinux_${EDITION}_12.231005_x86-64.iso"
+    local URL="https://sourceforge.net/projects/spirallinux/files/12.231005"
 
-	HASH=$(wget -q -O- 'https://sourceforge.net/projects/spirallinux/rss?path=/' | grep "${ISO}" | grep 'md5' | cut -d'<' -f3 | cut -d'>' -f2)
-	echo "${URL}/${ISO}" "${HASH}"
+    HASH=$(wget -q -O- 'https://sourceforge.net/projects/spirallinux/rss?path=/' | grep "${ISO}" | grep 'md5' | cut -d'<' -f3 | cut -d'>' -f2)
+    echo "${URL}/${ISO}" "${HASH}"
 }
 
 function get_tails() {
@@ -2959,13 +2981,12 @@ else
     echo -n " - Operating Systems: "
     os_support
     echo "
-        You can also use this arguments:
-        Only show ISO download URL
-            --show-iso-url / -s {distro} {release} [edition]
-        Test if ISO is available
-            --test-iso-url / -t {distro} {release} [edition]
-        Open distro homepage
-            --open-distro-homepage / -o {distro}"
+You can also use these arguments
+--show-iso-url / -u <distro> <release> <edition> : Show ISO download URL
+--test-iso-url / -t <distro> <release> <edition> : Test if ISO is available
+--download-iso / -d <distro> <release> <edition> : Download ISO
+--open-distro-homepage / -o <distro>             : Open distro homepage
+--show-distro-homepage / -s <distro>             : Show distro homepage link"
     exit 1
 fi
 
@@ -3051,8 +3072,11 @@ if [ -n "${2}" ]; then
         create_vm "$("get_${OS}")"
     fi
 elif [ "${open_distro_homepage}" == 'on' ]; then
-    HOMEPAGE=$(os_homepages ${OS})
+    HOMEPAGE=$(os_homepage ${OS})
     open_url "${HOMEPAGE}" && exit 0
+elif [ "${show_distro_homepage}" == 'on' ]; then
+    HOMEPAGE=$(os_homepage ${OS})
+    echo "${HOMEPAGE}" && exit 0
 elif [ $(releases_${OS} | wc -w) -eq 1 ] && [[ ! $(type -t "editions_${OS}") == function ]]; then
     RELEASE=$(releases_${OS})
     VM_PATH="${OS}"
