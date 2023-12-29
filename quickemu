@@ -1887,8 +1887,12 @@ fi
 if [ ${VM_UP} -eq 0 ]; then
     vm_boot
     # If the VM being started is an uninstalled Windows VM then auto-skip the press-any key prompt.
-    if [ -n "${iso}" ] && [ "${guest_os}" == "windows" ] || [ "${guest_os}" == "windows-server" ]; then
+    if [ -n "${iso}" ] && [ "${guest_os}" == "windows" ]; then
         sleep 3.5
+        monitor_send_cmd "sendkey ret"
+    fi
+    if [ -n "${iso}" ] && [ "${guest_os}" == "windows-server" ]; then
+        sleep 7
         monitor_send_cmd "sendkey ret"
     fi
     start_viewer
