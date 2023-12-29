@@ -77,7 +77,7 @@ QEMU](https://img.youtube.com/vi/AOTYWEgw0hI/0.jpg)](https://www.youtube.com/wat
 -   [LSB](https://wiki.linuxfoundation.org/lsb/start)
 -   [procps](https://gitlab.com/procps-ng/procps)
 -   [python3](https://www.python.org/)
--   [macrecovery](https://github.com/acidanthera/OpenCorePkg/tree/master/Utilities/macrecovery)
+-   [chunkcheck](https://gist.github.com/MCJack123/943eaca762730ca4b7ae460b731b68e7)
 -   [mkisofs](http://cdrtools.sourceforge.net/private/cdrecord.html)
 -   [usbutils](https://github.com/gregkh/usbutils)
 -   [util-linux](https://github.com/karelzak/util-linux)
@@ -259,15 +259,16 @@ You can also use `quickget` with options to:
 ``` shell
     # show an OS ISO download URL for {os} {release} [edition] 
     quickget --show-iso-url fedora 38 Silverblue   
-    # test if and OS ISO is available for {os} {release} [edition]
+    # test if an OS ISO is available for {os} {release} [edition]
     quickget --test-iso-url nixos 23.05 plasma5
     # open an OS distribution homepage in a browser
     quickget --open-distro-homepage  ubuntu-mate
+    # Only download image file into current directory, without creating VM
+    quickget --download-iso elementary 7.1
 ```
 
-The `--show-iso-url` and `--test-iso-url` options **do not** work for
-`Windows` (`quickget` will begin downloading the requested release and
-edition of windows)
+The `--show-iso-url`, `--test-iso-url`, and `--download-iso` options are fully
+functional for all operating systems, including Windows and macOS.
 
 ## Other Operating Systems
 
@@ -373,8 +374,8 @@ quickget macos catalina
 quickemu --vm macos-catalina.conf
 ```
 
-macOS `high-sierra`, `mojave`, `catalina`, `big-sur`, `monterey` and
-`ventura` are supported.
+macOS `high-sierra`, `mojave`, `catalina`, `big-sur`, `monterey`, `ventura` and
+`sonoma` are supported.
 
 -   Use cursor keys and enter key to select the **macOS Base System**
 -   From **macOS Utilities**
@@ -384,7 +385,7 @@ macOS `high-sierra`, `mojave`, `catalina`, `big-sur`, `monterey` and
             click **Erase**.
         -   Enter a `Name:` for the disk
         -   If you are installing macOS Mojave or later (Catalina, Big
-            Sur, Monterey and Ventura), choose any of the APFS options
+            Sur, Monterey, Ventura and Sonoma), choose any of the APFS options
             as the filesystem. MacOS Extended may not work.
     -   Click **Erase**.
     -   Click **Done**.
@@ -462,6 +463,7 @@ There are some considerations when running macOS via Quickemu.
     -   Big Sur
     -   Monterey
     -   Ventura
+    -   Sonoma
 -   `quickemu` will automatically download the required
     [OpenCore](https://github.com/acidanthera/OpenCorePkg) bootloader
     and OVMF firmware from [OSX-KVM](https://github.com/kholia/OSX-KVM).
@@ -913,7 +915,7 @@ Useful reference that assisted the development of Quickemu.
     -   <https://passthroughpo.st/mac-os-adds-early-support-for-virtio-qemu/>
     -   <https://github.com/kholia/OSX-KVM>
     -   <https://github.com/thenickdude/KVM-Opencore>
-    -   <https://github.com/acidanthera/OpenCorePkg/tree/master/Utilities/macrecovery>
+    -   <https://gist.github.com/MCJack123/943eaca762730ca4b7ae460b731b68e7>
     -   <https://www.kraxel.org/blog/2017/09/running-macos-as-guest-in-kvm/>
     -   <https://www.nicksherlock.com/2017/10/passthrough-of-advanced-cpu-features-for-macos-high-sierra-guests/>
     -   <http://philjordan.eu/osx-virt/>
