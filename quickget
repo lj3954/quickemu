@@ -2719,7 +2719,7 @@ create_vm() {
 
     if [ ${OS} == "whonix" ] && [[ $ISO =~ ".xz" ]]; then
         # https://www.whonix.org/wiki/KVM#signify
-        #tar -xvf "${VM_PATH}/Whonix-Xfce-${RELEASE}.Intel_AMD64.qcow2.libvirt.xz" --directory "${VM_PATH}"
+        tar -xvf "${VM_PATH}/Whonix-Xfce-${RELEASE}.Intel_AMD64.qcow2.libvirt.xz" --directory "${VM_PATH}"
         more "${VM_PATH}/WHONIX_BINARY_LICENSE_AGREEMENT"
         read -p "Do you agree? Press y/Y" -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]; then
