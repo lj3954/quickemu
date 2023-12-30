@@ -341,6 +341,18 @@ function vm_boot() {
     boot=${boot,,}
     guest_os=${guest_os,,}
 
+    if [ "${guest_os}" == "whonix" ]; then
+        local GATEWAYCONF="guest_os=linux
+disk_img=${VMDIR}/gateway-disk.qcow2
+disk_size=127.4G
+ram=0.5G
+cpu_cores=1
+boot=legacy"
+
+        "$(dirname "${0}")/quickemu" --vm <(echo "${GATEWAYCONF}") 
+        guest_os="linux"
+    fi 
+
     if [ "${guest_os}" == "macos" ] || [ "${guest_os}" == "windows" ]; then
         # Display MSRs alert if the guest is macOS or windows
         ignore_msrs_alert
@@ -1099,7 +1111,7 @@ function vm_boot() {
         args+=(-drive if=floppy,format=raw,file="${floppy}")
     fi
 
-    if [ -n "${iso}" ]; then
+    if [ -n "${iso}" ] && [ "${OS}" != "whonix" ]; then
         # shellcheck disable=SC2054
         args+=(-drive media=cdrom,index=0,file="${iso}")
     fi

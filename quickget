@@ -871,10 +871,6 @@ function releases_whonix() {
     echo 17.0.3.0
 }
 
-function editions_whonix() {
-    echo gateway workstation
-}
-
 function releases_zorin() {
     echo 16
 }
@@ -1039,6 +1035,9 @@ function make_vm_config() {
             IMAGE_TYPE="iso";;
         windows)
             GUEST="windows"
+            IMAGE_TYPE="iso";;
+        whonix)
+            GUEST="whonix"
             IMAGE_TYPE="iso";;
         *)
             GUEST="linux"
@@ -2155,11 +2154,11 @@ function get_vxlinux() {
 function get_whonix() {
     local EDITION="${1:-}"
     local HASH=""
-    local URL=""
     local ISO="Whonix-Xfce-${RELEASE}.Intel_AMD64.qcow2.libvirt.xz"
     local URL="https://download.whonix.org/libvirt/${RELEASE}/"
 
     HASH=$(wget -q -O- "${URL}/Whonix-Xfce-${RELEASE}.sha512sums" | cut -d' ' -f1)
+
     echo "${URL}/${ISO} ${HASH}"
 }
 
@@ -2720,18 +2719,17 @@ create_vm() {
 
     if [ ${OS} == "whonix" ] && [[ $ISO =~ ".xz" ]]; then
         # https://www.whonix.org/wiki/KVM#signify
-        cd ${VM_PATH}
-        tar -xvf Whonix*.libvirt.xz
-        more WHONIX_BINARY_LICENSE_AGREEMENT
-        read -p "Are you agree? Press y/Y" -n 1 -r
+        #tar -xvf "${VM_PATH}/Whonix-Xfce-${RELEASE}.Intel_AMD64.qcow2.libvirt.xz" --directory "${VM_PATH}"
+        more "${VM_PATH}/WHONIX_BINARY_LICENSE_AGREEMENT"
+        read -p "Do you agree? Press y/Y" -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            touch WHONIX_BINARY_LICENSE_AGREEMENT_accepted
+            touch "${VM_PATH}/WHONIX_BINARY_LICENSE_AGREEMENT_accepted"
         else
-            touch WHONIX_BINARY_LICENSE_AGREEMENT_denied
+            touch "${VM_PATH}/WHONIX_BINARY_LICENSE_AGREEMENT_denied"
             exit 0
         fi
-        mv Whonix-Workstation-Xfce-${RELEASE}.Intel_AMD64.qcow2 "whonix-${RELEASE}-workstation/disk.qcow2"
-        mv Whonix-Gateway-Xfce-${RELEASE}.Intel_AMD64.qcow2 "whonix-${RELEASE}-gateway/disk.qcow2"
+        mv "${VM_PATH}/Whonix-Workstation-Xfce-${RELEASE}.Intel_AMD64.qcow2" "${VM_PATH}/disk.qcow2"
+        mv "${VM_PATH}/Whonix-Gateway-Xfce-${RELEASE}.Intel_AMD64.qcow2" "${VM_PATH}/gateway-disk.qcow2"
     fi
 
     make_vm_config "${ISO}"
