@@ -341,16 +341,26 @@ function vm_boot() {
     boot=${boot,,}
     guest_os=${guest_os,,}
 
-    if [ "${guest_os}" == "whonix" ]; then
-        local GATEWAYCONF="guest_os=linux
+    if [[ "${disk_img}" =~ "gateway-disk.qcow2" ]] && [ "${guest_os}" == "whonix" ]; then
+        args+=(-netdev '{"type":"tap","fd":"19","vhost":true,"vhostfd":"20","id":"hostnet0"}' \
+        -device '{"driver":"virtio-net-pci","netdev":"hostnet0","id":"net0","mac":"52:54:00:f0:f5:32","bus":"pci.0","addr":"0x3"}' \
+        -netdev '{"type":"tap","fd":"21","vhost":true,"vhostfd":"22","id":"hostnet1"}' \
+        -device '{"driver":"virtio-net-pci","netdev":"hostnet1","id":"net1","mac":"52:54:00:c4:e4:bb","bus":"pci.0","addr":"0x4"}')
+        guest_os="linux"
+        
+    elif [ "${guest_os}" == "whonix" ]; then
+        local GATEWAYCONF="guest_os=whonix
 disk_img=${VMDIR}/gateway-disk.qcow2
-disk_size=127.4G
+disk_size=16G
 ram=0.5G
 cpu_cores=1
-boot=legacy"
+boot=legacy
+network=none"
 
         "$(dirname "${0}")/quickemu" --vm <(echo "${GATEWAYCONF}") 
         guest_os="linux"
+        args+=(-netdev '{"type":"tap","fd":"19","vhost":true,"vhostfd":"20","id":"hostnet0"}' -device \
+        '{"driver":"virtio-net-pci","netdev":"hostnet0","id":"net0","mac":"52:54:00:11:64:8e","bus":"pci.0","addr":"0x3"}')
     fi 
 
     if [ "${guest_os}" == "macos" ] || [ "${guest_os}" == "windows" ]; then
@@ -1111,7 +1121,7 @@ boot=legacy"
         args+=(-drive if=floppy,format=raw,file="${floppy}")
     fi
 
-    if [ -n "${iso}" ] && [ "${OS}" != "whonix" ]; then
+    if [ -n "${iso}" ]; then
         # shellcheck disable=SC2054
         args+=(-drive media=cdrom,index=0,file="${iso}")
     fi
