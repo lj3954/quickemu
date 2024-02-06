@@ -113,7 +113,7 @@ function main() {
         else
             if release_valid; then
                 if editions_required; then
-                    if [ -z "${EDITION}" ];then
+                    if [ -z "${EDITION}" ]; then
                         error "You must specify one of the valid release edition combinations for $(pretty_name)"
                         release_editions
                         usage
