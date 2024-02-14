@@ -13,7 +13,7 @@
 # Homepage of the operating system (URL)
 readonly HOMEPAGE="https://www.microsoft.com/en-us/windows/"
 # Set this to 1 if your fetch_info function fetches data from the internet, 0 if it's hardcoded
-readonly CACHE_DATA=0
+readonly CACHE_DATA=1
 # Set this variable depending on whether or not the operating system requires an edition to be specified
 readonly REQUIRES_EDITION=0
 # Add all valid architectures for your operating system here. The first one in the array will be the default (if host system does not match)
@@ -37,19 +37,19 @@ function fetch_info() {
             # If unique editions are required per release, use this template.
             # You may still put static editions (those which are present for ALL releases) in the EDITIONS array 
             associativeEDITIONS['8']="Arabic;Brazilian Portuguese;Bulgarian;Chinese (Simplified);Chinese (Traditional);Chinese (Traditional Hong Kong);\
-            Croatian;Czech;Danish;Dutch;English (United States);English International;Estonian;Finnish;French;German;Greek;Hebrew;Hungarian;Italian;Japanese;\
-            Latvian;Lithuanian;Norwegian;Polish;Portuguese;Romanian;Russian;Serbian Latin;Slovak;Slovenian;Spanish;Swedish;Thai;Turkish;Ukrainian"
+Croatian;Czech;Danish;Dutch;English (United States);English International;Estonian;Finnish;French;German;Greek;Hebrew;Hungarian;Italian;Japanese;\
+Latvian;Lithuanian;Norwegian;Polish;Portuguese;Romanian;Russian;Serbian Latin;Slovak;Slovenian;Spanish;Swedish;Thai;Turkish;Ukrainian"
             
             associativeEDITIONS['10-ltsc']="English (United States);English (Great Britain);Chinese (Simplified);Chinese (Traditional);French;German;Italian;\
-            Japanese;Korean;Portugese (Brazil);Spanish"
+Japanese;Korean;Portugese (Brazil);Spanish"
 
             associativeEDITIONS['10']="Arabic;Brazilian Portuguese;Bulgarian;Chinese (Simplified);Chinese (Traditional);Croatian;Czech;Danish;Dutch;\
-            English (United States);English International;Estonian;Finnish;French;French Canadian;German;Greek;Hebrew;Hungarian;Italian;Japanese;Korean;\
-            Latvian;Lithuanian;Norwegian;Polish;Portuguese;Romanian;Russian;Serbian Latin;Slovak;Slovenian;Spanish;Spanish (Mexico);Swedish;Thai;Turkish;Ukrainian"
+English (United States);English International;Estonian;Finnish;French;French Canadian;German;Greek;Hebrew;Hungarian;Italian;Japanese;Korean;\
+Latvian;Lithuanian;Norwegian;Polish;Portuguese;Romanian;Russian;Serbian Latin;Slovak;Slovenian;Spanish;Spanish (Mexico);Swedish;Thai;Turkish;Ukrainian"
             
             associativeEDITIONS['11']="Arabic;Brazilian Portuguese;Bulgarian;Chinese (Simplified);Chinese (Traditional);Croatian;Czech;Danish;Dutch;\
-            English (United States);English International;Estonian;Finnish;French;French Canadian;German;Greek;Hebrew;Hungarian;Italian;Japanese;Korean;\
-            Latvian;Lithuanian;Norwegian;Polish;Portuguese;Romanian;Russian;Serbian Latin;Slovak;Slovenian;Spanish;Spanish (Mexico);Swedish;Thai;Turkish;Ukrainian"
+English (United States);English International;Estonian;Finnish;French;French Canadian;German;Greek;Hebrew;Hungarian;Italian;Japanese;Korean;\
+Latvian;Lithuanian;Norwegian;Polish;Portuguese;Romanian;Russian;Serbian Latin;Slovak;Slovenian;Spanish;Spanish (Mexico);Swedish;Thai;Turkish;Ukrainian"
             ;;
 
         # Add other architectures here if necessary, like this.
@@ -83,7 +83,7 @@ function list_urls() {
     # Of course, each HASH or URL should be enclosed in double quotes.
     # If you need to add a custom filename, put it BEFORE the URL, separated by a space.
     # If you need to handle ALL downloading within this function, call whatever method you'd like, and then uncomment 'exit 2' so quickget knows to skip download.
-    case "${2}" in
+    case "${1}" in
         # Friendly is the show_iso_url option. It should print the URL(s) in a way that's easily readable, and not hashes
         --friendly)
             echo "${iso_download_link}";;
@@ -116,6 +116,8 @@ readonly GUEST_TYPE="linux"
 readonly IMAGE_TYPE="iso"
 # Set this to the amount of days before the cache is considered outdated and refreshed (if fetching from internet)
 readonly CACHE_DAYS=7
+# Cache URLs. For example, a Windows URL may be cached for 24 hours (1 day) since that's how long it takes to expire
+readonly CACHE_URLS=1
 
 
 # OPTIONAL. Only use these functions if you need to do something special with the VM config or image file
@@ -178,7 +180,7 @@ case "${1}" in
     --validate-re)
         validate_re;;
     --list-urls)
-        list_urls "${@}";;
+        fetch_from_cache --fetch-urls;;
     --prepare-image)
         prepare_image;;
     --config-additions)

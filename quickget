@@ -31,7 +31,7 @@ function handle_urls() {
     if [ "${TEST_ISO_URL}" != 'true' ] && [ "${DOWNLOAD_ONLY}" != 'true' ]; then
         echo "Downloading ${PRETTY_NAME} ${RELEASE} ${EDITION}"
     fi
-
+    echo "${PLUGIN_OUTPUT}"
     local URL=""
     for URL in ${PLUGIN_OUTPUT}; do
         check_hash "${URL}" || web_get "${URL}" || FILE="${URL}"
@@ -325,9 +325,8 @@ VM_DIR="$(pwd)"
 export VM_DIR VM_PATH
 
 PLUGIN_OUTPUT="$("${PLUGIN}" --list-urls --download)"
-EXIT_STATUS="${?}"
 
-case "${EXIT_STATUS}" in
+case "${?}" in
     0)
         handle_urls
         if [ -z "${LAST_DOWNLOADED}" ]; then
