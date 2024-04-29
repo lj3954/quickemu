@@ -258,12 +258,16 @@ function error_not_supported_argument() {
     exit 1
 }
 
+function error_unsupported_combination() {
+    echo "ERROR! Unsupported combination"
+}
+
 function handle_missing() {
     # Handle odd missing Fedora combinations
     case "${OS}" in
       fedora)
         if [[ "${RELEASE}" -lt 40 && "${EDITION}" == "Onyx" ]] || [[ "${RELEASE}" -lt 40 && "${EDITION}" == "Sericea" ]]; then
-            echo "ERROR! Unsupported combination"
+            error_unsupported_combination
             echo "       Fedora ${RELEASE} ${EDITION} is not available, please choose another Release or Edition"
             exit 1
         fi;;
