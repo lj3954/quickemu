@@ -460,8 +460,8 @@ function os_support() {
     alpine \
     android \
     antix \
-    archlinux \
     archcraft \
+    archlinux \
     arcolinux \
     artixlinux \
     athenaos \
@@ -501,6 +501,8 @@ function os_support() {
     linuxlite \
     linuxmint \
     lmde \
+    lubuntu \
+    macos \
     mageia \
     manjaro \
     mxlinux \
@@ -508,14 +510,12 @@ function os_support() {
     netbsd \
     nitrux \
     nixos \
-    lubuntu \
-    macos \
     openbsd \
     openindiana \
     opensuse \
     oraclelinux \
-    peppermint \
     parrotsec \
+    peppermint \
     popos \
     porteus \
     primtux \
@@ -539,12 +539,12 @@ function os_support() {
     tuxedo-os \
     ubuntu \
     ubuntu-budgie \
-    ubuntucinnamon \
-    ubuntukylin \
     ubuntu-mate \
     ubuntu-server \
-    ubuntustudio \
     ubuntu-unity \
+    ubuntucinnamon \
+    ubuntukylin \
+    ubuntustudio \
     vanillaos \
     void \
     vxlinux \
