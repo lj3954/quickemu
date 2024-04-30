@@ -40,7 +40,7 @@ function os_info() {
     SIMPLE_NAME="${1}"
     case ${SIMPLE_NAME} in
       #name)            INFO="PrettyName|BasedOf|Credentials|Homepage|Info";;
-      alma)             INFO="Alma Linux|Fedora,RedHat|-|https://almalinux.org/|Community owned and governed, forever-free enterprise Linux distribution, focused on long-term stability, providing a robust production-grade platform. AlmaLinux OS is binary compatible with RHEL®.";;
+      alma)             INFO="Alma Linux|Fedora RedHat|-|https://almalinux.org/|Community owned and governed, forever-free enterprise Linux distribution, focused on long-term stability, providing a robust production-grade platform. AlmaLinux OS is binary compatible with RHEL®.";;
       alpine)           INFO="Alpine Linux|Independent|-|https://alpinelinux.org/|Security-oriented, lightweight Linux distribution based on musl libc and busybox.";;
       android)          INFO="Android x86|Independent|-|https://www.android-x86.org/|Port Android Open Source Project to x86 platform.";;
       antix)            INFO="Antix|Debian|-|https://antixlinux.com/|Fast, lightweight and easy to install systemd-free linux live CD distribution based on Debian Stable for Intel-AMD x86 compatible systems.";;
@@ -50,13 +50,13 @@ function os_info() {
       artixlinux)       INFO="Artix Linux|Arch|-|https://artixlinux.org/|The Art of Linux. Simple. Fast. Systemd-free.";;
       athenaos)         INFO="Athena OS|Arch|-|https://athenaos.org/|Offer a different experience than the most used pentesting distributions by providing only tools that fit with the user needs and improving the access to hacking resources and learning materials.";;
       batocera)         INFO="Batocera|Independent|-|https://batocera.org/|Retro-gaming distribution with the aim of turning any computer/nano computer into a gaming console during a game or permanently.";;
-      bazzite)          INFO="Bazzite|Fedora,SteamOS|-|https://github.com/ublue-os/bazzite/|Container native gaming and a ready-to-game SteamOS like.";;
+      bazzite)          INFO="Bazzite|Fedora SteamOS|-|https://github.com/ublue-os/bazzite/|Container native gaming and a ready-to-game SteamOS like.";;
       biglinux)         INFO="BigLinux|unknown|-|https://www.biglinux.com.br/|Is the right choice if you want to have an easy and enriching experience with Linux. It has been perfected over more than 19 years, following our motto: 'In search of the perfect system'.";;
       blendos)          INFO="BlendOS|Arch|-|https://blendos.co/|A seamless blend of all Linux distributions. Allows you to have an immutable, atomic and declarative Arch Linux system, with application support from several Linux distributions & Android.";;
-      bodhi)            INFO="Bodhi|Debian,Ubuntu|-|https://www.bodhilinux.com/|Lightweight distribution featuring the fast & fully customizable Moksha Desktop.";;
+      bodhi)            INFO="Bodhi|Debian Ubuntu|-|https://www.bodhilinux.com/|Lightweight distribution featuring the fast & fully customizable Moksha Desktop.";;
       bunsenlabs)       INFO="BunsenLabs|Debian|-|https://www.bunsenlabs.org/|Light-weight and easily customizable Openbox desktop. The project is a community continuation of CrunchBang Linux.";;
       cachyos)          INFO="CachyOS|Arch|-|https://cachyos.org/|Designed to deliver lightning-fast speeds and stability, ensuring a smooth and enjoyable computing experience every time you use it.";;
-      centos-stream)    INFO="CentOS Stream|Fedora,RedHat|-|https://www.centos.org/centos-stream/|Continuously delivered distro that tracks just ahead of Red Hat Enterprise Linux (RHEL) development, positioned as a midstream between Fedora Linux and RHEL.";;
+      centos-stream)    INFO="CentOS Stream|Fedora RedHat|-|https://www.centos.org/centos-stream/|Continuously delivered distro that tracks just ahead of Red Hat Enterprise Linux (RHEL) development, positioned as a midstream between Fedora Linux and RHEL.";;
       chimeralinux)     INFO="Chimera Linux|Independent|anon:chimera root:chimera|https://chimera-linux.org/|Modern, general-purpose non-GNU Linux distribution.";;
       crunchbang++)     INFO="#!++|Debian|-|https://www.crunchbangplusplus.org/|The classic minimal crunchbang feel, now with debian 12 bookworm.";;
       debian)           INFO="Debian|Independent|-|https://www.debian.org/|Complete Free Operating System with perfect level of ease of use and stability.";;
@@ -65,7 +65,7 @@ function os_info() {
       dragonflybsd)     INFO="DragonFlyBSD|FreeBSD|-|https://www.dragonflybsd.org/|Provides an opportunity for the BSD base to grow in an entirely different direction from the one taken in the FreeBSD, NetBSD, and OpenBSD series.";;
       easyos)           INFO="EasyOS|Independent|-|https://easyos.org/|Experimental distribution designed from scratch to support containers.";;
       edubuntu)         INFO="Edubuntu|Ubuntu|-|https://www.edubuntu.org/|Stable, secure and privacy concious option for schools.";;
-      elementary)       INFO="elementary OS|Debian,Ubuntu|-|https://elementary.io/|Thoughtful, capable, and ethical replacement for Windows and macOS.";;
+      elementary)       INFO="elementary OS|Debian Ubuntu|-|https://elementary.io/|Thoughtful, capable, and ethical replacement for Windows and macOS.";;
       endeavouros)      INFO="EndeavourOS|Arch|-|https://endeavouros.com/|Provides an Arch experience without the hassle of installing it manually for both x86_64 and ARM systems.";;
       endless)          INFO="Endless OS|Debian|-|https://www.endlessos.org/os|Completely Free, User-Friendly Operating System Packed with Educational Tools, Games, and More.";;
       fedora)           INFO="Fedora|Independent|-|https://www.fedoraproject.org/|Innovative platform for hardware, clouds, and containers, built with love by you.";;
@@ -77,18 +77,18 @@ function os_info() {
       gnomeos)          INFO="GNOME OS|Independent|-|https://os.gnome.org/|Alpha nightly bleeding edge distro of GNOME";;
       guix)             INFO="Guix|Independent|-|https://guix.gnu.org/|Distribution of the GNU operating system developed by the GNU Project—which respects the freedom of computer users.";;
       haiku)            INFO="Haiku|Independent|-|https://www.haiku-os.org/|Specifically targets personal computing. Inspired by the BeOS, Haiku is fast, simple to use, easy to learn and yet very powerful.";;
-      holoiso)          INFO="SteamOS HoloISO|Arch,SteamOS|-|https://github.com/HoloISO/holoiso|Bring the Steam Decks SteamOS Holo redistribution and provide a close-to-official SteamOS experience.";;
+      holoiso)          INFO="SteamOS HoloISO|Arch SteamOS|-|https://github.com/HoloISO/holoiso|Bring the Steam Decks SteamOS Holo redistribution and provide a close-to-official SteamOS experience.";;
       kali)             INFO="Kali|Debian|-|https://www.kali.org/|The most advanced Penetration Testing Distribution.";;
-      kdeneon)          INFO="KDE Neon|Debian,Ubuntu|-|https://neon.kde.org/|Latest and greatest of KDE community software packaged on a rock-solid base.";;
+      kdeneon)          INFO="KDE Neon|Debian Ubuntu|-|https://neon.kde.org/|Latest and greatest of KDE community software packaged on a rock-solid base.";;
       kolibrios)        INFO="KolibriOS|Independent|-|http://kolibrios.org/en/|Tiny yet incredibly powerful and fast operating system.";;
       kubuntu)          INFO="Kubuntu|Ubuntu|-|https://kubuntu.org/|Free, complete, and open-source alternative to Microsoft Windows and Mac OS X which contains everything you need to work, play, or share.";;
-      linuxlite)        INFO="Linux Lite|Debian,Ubuntu|-|https://www.linuxliteos.com/|Your first simple, fast and free stop in the world of Linux.";;
-      linuxmint)        INFO="Linux Mint|Debian,Ubuntu|-|https://linuxmint.com/|Designed to work out of the box and comes fully equipped with the apps most people need.";;
+      linuxlite)        INFO="Linux Lite|Debian Ubuntu|-|https://www.linuxliteos.com/|Your first simple, fast and free stop in the world of Linux.";;
+      linuxmint)        INFO="Linux Mint|Debian Ubuntu|-|https://linuxmint.com/|Designed to work out of the box and comes fully equipped with the apps most people need.";;
       lmde)             INFO="Linux Mint Debian Edition|Debian|-|https://www.linuxmint.com/download_lmde.php|Aims to be as similar as possible to Linux Mint, but without using Ubuntu. The package base is provided by Debian instead.";;
       lubuntu)          INFO="Lubuntu|Ubuntu|-|https://lubuntu.me/|Complete Operating System that ships the essential apps and services for daily use: office applications, PDF reader,  image editor, music and video players, etc. Using lightwave lxde/lxqt.";;
       mageia)           INFO="Mageia|Independent|-|https://www.mageia.org/|Stable, secure operating system for desktop & server.";;
       manjaro)          INFO="Manjaro|Arch|-|https://manjaro.org/|Versatile, free, and open-source Linux operating system designed with a strong focus on safeguarding user privacy and offering extensive control over hardware.";;
-      mxlinux)          INFO="MX Linux|Debian,Antix|-|https://mxlinux.org/|Designed to combine elegant and efficient desktops with high stability and solid performance.";;
+      mxlinux)          INFO="MX Linux|Debian Antix|-|https://mxlinux.org/|Designed to combine elegant and efficient desktops with high stability and solid performance.";;
       netboot)          INFO="netboot.xyz|iPXE|-|https://netboot.xyz/|Your favorite operating systems in one place.";;
       netbsd)           INFO="NetBSD|Independent|-|https://www.netbsd.org/|Free, fast, secure, and highly portable Unix-like Open Source operating system. It is available for a wide range of platforms, from large-scale servers and powerful desktop systems to handheld and embedded devices.";;
       nitrux)           INFO="Nitrux|Debian|-|https://nxos.org/|Powered by Debian, KDE Plasma and Frameworks, and AppImages.";;
@@ -96,11 +96,11 @@ function os_info() {
       nwgiso)           INFO="nwg-shell|Arch|nwg:nwg|https://nwg-piotr.github.io/nwg-shell/|Arch Linux ISO with nwg-shell for sway and Hyprland";;
       macos)            INFO="macOS|proprietary|-|https://www.apple.com/macos/|Work and play on your Mac are even more powerful. Elevate your presence on video calls. Access information in all-new ways. Boost gaming performance. And discover even more ways to personalize your Mac.";;
       openbsd)          INFO="OpenBSD|Independent|-|https://www.openbsd.org/|FREE, multi-platform 4.4BSD-based UNIX-like operating system. Our efforts emphasize portability, standardization, correctness, proactive security and integrated cryptography.";;
-      openindiana)      INFO="OpenIndiana|Solaris,OpenSolaris|-|https://www.openindiana.org/|Community supported illumos-based operating system.";;
+      openindiana)      INFO="OpenIndiana|Solaris OpenSolaris|-|https://www.openindiana.org/|Community supported illumos-based operating system.";;
       opensuse)         INFO="openSUSE|Independent|-|https://www.opensuse.org/|The makers choice for sysadmins, developers and desktop users.";;
       oraclelinux)      INFO="Oracle Linux|RedHat|-|https://www.oracle.com/linux/|Linux with everything required to deploy, optimize, and manage applications on-premises, in the cloud, and at the edge.";;
       parrotsec)        INFO="Parrot Security|Debian|parrot:parrot|https://www.parrotsec.org/|Provides a huge arsenal of tools, utilities and libraries that IT and security professionals can use to test and assess the security of their assets in a reliable, compliant and reproducible way.";;
-      peppermint)       INFO="PeppermintOS|Debian,Devuan|-|https://peppermintos.com/|Provides a user with the opportunity to build the system that best fits their needs. While at the same time providing a functioning OS with minimum hassle out of the box.";;
+      peppermint)       INFO="PeppermintOS|Debian Devuan|-|https://peppermintos.com/|Provides a user with the opportunity to build the system that best fits their needs. While at the same time providing a functioning OS with minimum hassle out of the box.";;
       popos)            INFO="Pop!_OS|Ubuntu|-|https://pop.system76.com/|Operating system for STEM and creative professionals who use their computer as a tool to discover and create.";;
       porteus)          INFO="Porteus|Slackware|-|http://www.porteus.org/|Complete linux operating system that is optimized to run from CD, USB flash drive, hard drive, or other bootable storage media.";;
       primtux)          INFO="PrimTux|Ubuntu|-|https://primtux.fr/|A complete and customizable GNU/Linux operating system intended for primary school students and suitable even for older hardware.";;
@@ -118,19 +118,19 @@ function os_info() {
       spirallinux)      INFO="SpiralLinux|Debian|-|https://spirallinux.github.io/|Selection of Linux spins built from Debian GNU/Linux, with a focus on simplicity and out-of-the-box usability across all the major desktop environments.";;
       tails)            INFO="Tails|Debian|-|https://tails.net/|Portable operating system that protects against surveillance and censorship.";;
       tinycore)         INFO="Tiny Core Linux|Independent|-|http://www.tinycorelinux.net/|Highly modular based system with community build extensions.";;
-      trisquel)         INFO="Trisquel|Debian,Ubuntu|-|https://trisquel.info/|Fully free operating system for home users, small enterprises and educational centers.";;
+      trisquel)         INFO="Trisquel|Debian Ubuntu|-|https://trisquel.info/|Fully free operating system for home users, small enterprises and educational centers.";;
       truenas-core)     INFO="TrueNAS Core|FreeBSD|-|https://www.truenas.com/truenas-core/|World’s most popular storage OS because it gives you the power to build your own professional-grade storage system to use in a variety of data-intensive applications without any software costs.";;
       truenas-scale)    INFO="TrueNAS Scale|Debian|-|https://www.truenas.com/truenas-scale/|Open Source Hyperconverged Infrastructure (HCI) solution. In addition to powerful scale-out storage capabilities, SCALE adds Linux Containers and VMs (KVM) so apps run closer to data.";;
-      tuxedo-os)        INFO="Tuxedo OS|Ubuntu|-|https://www.tuxedocomputers.com/en/|KDE Ubuntu LTS designed to go with their Linux hardware.";;
+      tuxedo-os)         INFO="Tuxedo OS|Ubuntu|-|https://www.tuxedocomputers.com/en/|KDE Ubuntu LTS designed to go with their Linux hardware.";;
       ubuntu)           INFO="Ubuntu|Debian|-|https://ubuntu.com/|Complete desktop Linux operating system, freely available with both community and professional support.";;
       ubuntu-budgie)    INFO="Ubuntu Budgie|Ubuntu|-|https://ubuntubudgie.org/|Community developed distribution, integrating the Budgie Desktop Environment with Ubuntu at its core.";;
-      ubuntucinnamon)   INFO="Ubuntu Cinnamon|Ubuntu|-|https://ubuntucinnamon.org/|Community-driven, featuring Linux Mint’s Cinnamon Desktop with Ubuntu at the core, packed fast and full of features, here is the most traditionally modern desktop you will ever love.";;
-      ubuntukylin)      INFO="Ubuntu Kylin|Ubuntu|-|https://ubuntukylin.com/|Universal desktop operating system for personal computers, laptops, and embedded devices. It is dedicated to bringing a smarter user experience to users all over the world.";;
+      ubuntu-cinnamon)  INFO="Ubuntu Cinnamon|Ubuntu|-|https://ubuntucinnamon.org/|Community-driven, featuring Linux Mint’s Cinnamon Desktop with Ubuntu at the core, packed fast and full of features, here is the most traditionally modern desktop you will ever love.";;
+      ubuntu-kylin)     INFO="Ubuntu Kylin|Ubuntu|-|https://ubuntukylin.com/|Universal desktop operating system for personal computers, laptops, and embedded devices. It is dedicated to bringing a smarter user experience to users all over the world.";;
       ubuntu-mate)      INFO="Ubuntu MATE|Ubuntu|-|https://ubuntu-mate.org/|Stable, easy-to-use operating system with a configurable desktop environment. It is ideal for those who want the most out of their computers and prefer a traditional desktop metaphor. Using Mate desktop.";;
       ubuntu-server)    INFO="Ubuntu Server|Ubuntu|-|https://ubuntu.com/server|Brings economic and technical scalability to your datacentre, public or private. Whether you want to deploy an OpenStack cloud, a Kubernetes cluster or a 50,000-node render farm, Ubuntu Server delivers the best value scale-out performance available.";;
-      ubuntustudio)     INFO="Ubuntu Studio|Ubuntu|-|https://ubuntustudio.org/|Comes preinstalled with a selection of the most common free multimedia applications available, and is configured for best performance for various purposes: Audio, Graphics, Video, Photography and Publishing.";;
+      ubuntu-studio)    INFO="Ubuntu Studio|Ubuntu|-|https://ubuntustudio.org/|Comes preinstalled with a selection of the most common free multimedia applications available, and is configured for best performance for various purposes: Audio, Graphics, Video, Photography and Publishing.";;
       ubuntu-unity)     INFO="Ubuntu Unity|Ubuntu|-|https://ubuntuunity.org/|Flavor of Ubuntu featuring the Unity7 desktop environment (the default desktop environment used by Ubuntu from 2010-2017).";;
-      vanillaos)        INFO="Vanilla OS|Debian,Ubuntu|-|https://vanillaos.org/|Designed to be a reliable and productive operating system for your daily work.";;
+      vanillaos)        INFO="Vanilla OS|Debian Ubuntu|-|https://vanillaos.org/|Designed to be a reliable and productive operating system for your daily work.";;
       void)             INFO="Void Linux|Independent|anon:voidlinux|https://voidlinux.org/|General purpose operating system. Its package system allows you to quickly install, update and remove software; software is provided in binary packages or can be built directly from sources.";;
       vxlinux)          INFO="VX Linux|Void|-|https://vxlinux.org/|Pre-configured, secure systemd-free Plasma desktop with focus on convenience, performance and simplicity. Based on the excellent Void Linux.";;
       whonix)           INFO="Whonix|Debian|-|https://www.whonix.org/|Superior Internet Privacy with Whonix™ As handy as an app - delivering maximum anonymity and security.";;
@@ -146,14 +146,12 @@ function show_os_info() {
      while getopts ":12345" opt; do
         case $opt in
           1|2|3|4|5) os_info "${2}" | cut -d'|' -f${opt};;
-          *) echo "Wrong choice!" && exit 1;;
+          *) error_not_supported_argument;;
         esac
     done
 }
 
-function pretty_name() {
-    echo $(show_os_info -1 "${1}")
-}
+PRETTY_NAME=$(show_os_info -1 "${OS}")
 
 # Just in case quickget want use it
 function os_homepage(){
@@ -225,7 +223,7 @@ function error_not_supported_os() {
 
 function error_not_supported_release() {
     if [[ ! " ${RELEASES[*]} " =~ " ${RELEASE} " ]]; then
-        echo -e "ERROR! ${DISPLAY_NAME} ${RELEASE} is not a supported release."
+        echo -e "ERROR! ${PRETTY_NAME} ${RELEASE} is not a supported release."
         echo -n 'Supported releases: '
         "releases_${OS}"
         exit 1
@@ -234,7 +232,7 @@ function error_not_supported_release() {
 
 function error_not_supported_edition() {
     if [[ ! " ${EDITIONS[*]} " =~ " ${EDITION} " ]]; then
-        echo -e "ERROR! ${EDITION} is not a supported $(pretty_name "${OS}") edition\n"
+        echo -e "ERROR! ${EDITION} is not a supported ${PRETTY_NAME} edition\n"
         echo -n ' - Editions: '
         for EDITION in "${EDITIONS[@]}"; do
             echo -n "${EDITION} "
@@ -245,7 +243,7 @@ function error_not_supported_edition() {
 }
 
 function error_not_supported_lang() {
-    echo -e "ERROR! ${LANG} is not a supported $(pretty_name "${OS}") language\n"
+    echo -e "ERROR! ${LANG} is not a supported ${PRETTY_NAME} language\n"
     echo -n ' - Editions: '
     for LANG in "${LANGS[@]}"; do
         echo -n "${LANG} "
@@ -253,24 +251,33 @@ function error_not_supported_lang() {
     exit 1
 }
 
+function error_not_supported_argument() {
+    echo "ERROR! Not supported argument"
+    echo "To see all possible arguments, use:"
+    echo "   quickget -h  or  quickget --help"
+    exit 1
+}
+
+function error_unsupported_combination() {
+    echo "ERROR! Unsupported combination"
+}
+
 function handle_missing() {
     # Handle odd missing Fedora combinations
     case "${OS}" in
-        fedora)
-            if [[ "${RELEASE}" -lt 40 && "${EDITION}" == "Onyx" ]] || [[ "${RELEASE}" -lt 40 && "${EDITION}" == "Sericea" ]]; then
-                echo "ERROR! Unsupported combination"
-                echo "       Fedora ${RELEASE} ${EDITION} is not available, please choose another Release or Edition"
-                exit 1
-            fi;;
+      fedora)
+        if [[ "${RELEASE}" -lt 40 && "${EDITION}" == "Onyx" ]] || [[ "${RELEASE}" -lt 40 && "${EDITION}" == "Sericea" ]]; then
+            error_unsupported_combination
+            echo "       Fedora ${RELEASE} ${EDITION} is not available, please choose another Release or Edition"
+            exit 1
+        fi;;
     esac
 }
 
 function validate_release() {
-    local DISPLAY_NAME=""
+    local PRETTY_NAME=""
     local RELEASE_GENERATOR=""
     local RELEASES=""
-
-    DISPLAY_NAME="$(pretty_name "${OS}")"
     case ${OS} in
       *ubuntu-server*) RELEASE_GENERATOR="releases_ubuntu-server";;
       *ubuntu*) RELEASE_GENERATOR="releases_ubuntu";;
@@ -288,15 +295,12 @@ function list_json() {
 
 function list_csv() {
     CSV_DATA="$(csv_data)"
-
-    echo "Display Name,OS,Release,Option,Downloader,PNG,SVG"
     sort -f <<<"${CSV_DATA}"
-
     exit 0
 }
 
 function csv_data() {
-    local DISPLAY_NAME
+    local PRETTY_NAME
     local DL=""
     local DOWNLOADER
     local FUNC
@@ -305,6 +309,7 @@ function csv_data() {
     local PNG
     local RELEASE
     local SVG
+    local INFO
     local HAS_ZSYNC=0
 
     # Check if zsync is available
@@ -313,9 +318,10 @@ function csv_data() {
     fi
 
     for OS in $(os_support); do
+        local INFO=""
         local EDITIONS=""
-        DISPLAY_NAME="$(pretty_name "${OS}")"
-
+        INFO=$(os_info "$OS")
+        IFS='|' read -r PRETTY_NAME BASED_ON CREDENTIALS HOMEPAGE INFO_TEXT <<< "$INFO"
         case ${OS} in
           *ubuntu-server*) FUNC="ubuntu-server";;
           *ubuntu*) FUNC="ubuntu";;
@@ -339,15 +345,15 @@ function csv_data() {
             # If the OS has an editions_() function, use it.
             if [[ ${EDITIONS} ]]; then
                 for OPTION in ${EDITIONS}; do
-                    echo "${DISPLAY_NAME},${OS},${RELEASE},${OPTION},${DOWNLOADER},${PNG},${SVG}"
+                    echo "${PRETTY_NAME},${OS},${RELEASE},${OPTION},${DOWNLOADER},${PNG},${SVG},${BASED_ON},${CREDENTIALS},${HOMEPAGE},${INFO_TEXT}"
                 done
             elif [[ "${OS}" == "windows"* ]]; then
                 "languages_${OS}"
                 for LANG in "${LANGS[@]}"; do
-                    echo "${DISPLAY_NAME},${OS},${RELEASE},${LANG},${DOWNLOADER},${PNG},${SVG}"
+                    echo "${PRETTY_NAME},${OS},${RELEASE},${LANG},${DOWNLOADER},${PNG},${SVG},${BASED_ON},${CREDENTIALS},${HOMEPAGE},${INFO_TEXT}"
                 done
             else
-                echo "${DISPLAY_NAME},${OS},${RELEASE},,${DOWNLOADER},${PNG},${SVG}"
+                echo "${PRETTY_NAME},${OS},${RELEASE},,${DOWNLOADER},${PNG},${SVG},${BASED_ON},${CREDENTIALS},${HOMEPAGE},${INFO_TEXT}"
             fi
         done &
     done
@@ -355,20 +361,48 @@ function csv_data() {
 }
 
 function create_config() {
-    local OS="${1}"
-    local DESTINATION="${2}"
-    local USE
-
-    if [[ "${DESTINATION}" == "http://"* ]] || [[ "${DESTINATION}" == "https://"* ]]; then
-        web_get "${DESTINATION}" "${OS}"
-        echo "#TODO: create config!"
-    elif [[ "${DESTINATION}" == "/"* ]]; then
-        cp "${OS}" "${DESTINATION}"/
-        echo "#TODO: create config!"
-    else
-        echo "You forget write full path?" && exit 1
+    local VM_PATH="${1}"
+    local INPUT="${2}"
+    OS="custom"
+    if ! mkdir "${VM_PATH}" 2>/dev/null; then
+        echo "ERROR! Could not create directory: ${VM_PATH}. Please verify that it does not already exist"
+        exit 21
     fi
-    exit 0
+    if [[ "${INPUT}" == "http://"* ]] || [[ "${INPUT}" == "https://"* ]]; then
+        INPUT="$(web_redirect "${INPUT}")"
+        if [[ "${INPUT}" == *".iso" ]] || [[ "${INPUT}" == *".img" ]]; then
+            web_get "${INPUT}" "${VM_PATH}"
+            INPUT="${VM_PATH}/${INPUT##*/}"
+        else
+            echo "ERROR! Only ISO,IMG and QCOW2 file types are supported for --create-config"
+            exit 22
+        fi
+    fi
+    if [[ "${INPUT}" == *".iso" ]]; then
+        echo "Moving image to VM dir" && mv "${INPUT}" "${VM_PATH}"
+        CUSTOM_IMAGE_TYPE="iso"
+    elif [[ "${INPUT}" == *".img" ]]; then
+        echo "Moving image to VM dir" && mv "${INPUT}" "${VM_PATH}"
+        CUSTOM_IMAGE_TYPE="img"
+    elif [[ "${INPUT}" == *".qcow2" ]]; then
+        echo "Moving image to VM dir" && mv "${INPUT}" "${VM_PATH}/disk.qcow2"
+        CUSTOM_IMAGE_TYPE="qcow2"
+    else
+        echo "ERROR! Only ISO,IMG and QCOW2 file types are supported for --create-config"
+        exit 23
+    fi
+    echo "Creating custom VM config for ${INPUT##*/}."
+    case "${INPUT,,}" in
+        *windows-server*) CUSTOM_OS="windows-server";;
+        *windows*) CUSTOM_OS="windows";;
+        *freebsd*) CUSTOM_OS="freebsd";;
+        *kolibrios*) CUSTOM_OS="kolibrios";;
+        *reactos*) CUSTOM_OS="reactos";;
+        *) CUSTOM_OS="linux";;
+    esac
+    echo "Selecting OS: ${CUSTOM_OS}. If this is incorrect, please modify the config file to include the correct OS."
+    echo
+    make_vm_config "${INPUT}"
 }
 
 function list_supported() {
@@ -376,7 +410,7 @@ function list_supported() {
     exit 0
 }
 
-function test_result() {
+function check_result() {
     local OS="${1}"
     local RELEASE="${2}"
     local EDITION="${3:-}"
@@ -398,7 +432,7 @@ function test_result() {
     fi
 }
 
-function test_all() {
+function check_all() {
     OS="${1}"
     os_supported
 
@@ -415,10 +449,10 @@ function test_all() {
                 validate_release releases_"${OS}"
                 URL=$(get_"${OS}" | cut_1 | head -1)
                 if [ "${OPERATION}" == "show" ]; then
-                    test_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}"
-                elif [ "${OPERATION}" == "test" ]; then
+                    check_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}"
+                elif [ "${OPERATION}" == "check" ]; then
                     CHECK=$(web_check "${URL}" && echo 'PASS' || echo 'FAIL')
-                    test_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}" "${CHECK}"
+                    check_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}" "${CHECK}"
                 fi
             done
         elif [[ "${OS}" == "windows"* ]]; then
@@ -426,9 +460,9 @@ function test_all() {
             for LANG in "${LANGS[@]}"; do
                 validate_release releases_"${OS}"
                 if [ "${OPERATION}" == "show" ]; then
-                    test_result "${OS}" "${RELEASE}" "${LANG}" ""
-                elif [ "${OPERATION}" == "test" ]; then
-                    test_result "${OS}" "${RELEASE}" "${LANG}" "${URL}" "SKIP"
+                    check_result "${OS}" "${RELEASE}" "${LANG}" ""
+                elif [ "${OPERATION}" == "check" ]; then
+                    check_result "${OS}" "${RELEASE}" "${LANG}" "${URL}" "SKIP"
                 fi
             done
         elif [[ "${OS}" == "macos" ]]; then
@@ -444,13 +478,15 @@ function test_all() {
             validate_release releases_"${OS}"
             URL=$(get_"${OS}" | cut_1 | head -1)
             if [ "${OPERATION}" == "show" ]; then
-                test_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}"
-            elif [ "${OPERATION}" == "test" ]; then
+                check_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}"
+            elif [ "${OPERATION}" == "check" ]; then
                 CHECK=$(web_check "${URL}" && echo 'PASS' || echo 'FAIL')
-                test_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}" "${CHECK}"
+                check_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}" "${CHECK}"
             fi
         fi
-    done
+    done &
+    wait
+    exit 0
 }
 
 function os_support() {
@@ -458,8 +494,8 @@ function os_support() {
     alpine \
     android \
     antix \
-    archlinux \
     archcraft \
+    archlinux \
     arcolinux \
     artixlinux \
     athenaos \
@@ -499,6 +535,8 @@ function os_support() {
     linuxlite \
     linuxmint \
     lmde \
+    lubuntu \
+    macos \
     mageia \
     manjaro \
     mxlinux \
@@ -506,14 +544,12 @@ function os_support() {
     netbsd \
     nitrux \
     nixos \
-    lubuntu \
-    macos \
     openbsd \
     openindiana \
     opensuse \
     oraclelinux \
-    peppermint \
     parrotsec \
+    peppermint \
     popos \
     porteus \
     primtux \
@@ -537,11 +573,11 @@ function os_support() {
     tuxedo-os \
     ubuntu \
     ubuntu-budgie \
-    ubuntucinnamon \
-    ubuntukylin \
+    ubuntu-cinnamon \
+    ubuntu-kylin \
     ubuntu-mate \
     ubuntu-server \
-    ubuntustudio \
+    ubuntu-studio \
     ubuntu-unity \
     vanillaos \
     void \
@@ -1060,13 +1096,13 @@ function releases_ubuntu() {
     case "${OS}" in
         ubuntu)
             echo ${SUPPORTED_VERSIONS[@]} daily-live ${EOL_VERSIONS[@]/#/eol-};;
-        kubuntu|lubuntu|ubuntukylin|ubuntu-mate|ubuntustudio|xubuntu)
+        kubuntu|lubuntu|ubuntu-kylin|ubuntu-mate|ubuntu-studio|xubuntu)
             # after 16.04
             echo ${SUPPORTED_VERSIONS[@]:1} daily-live ${EOL_VERSIONS[@]/#/eol-};;
         ubuntu-budgie)
             # after 18.04
             echo ${SUPPORTED_VERSIONS[@]:2} daily-live ${EOL_VERSIONS[@]/#/eol-};;
-        edubuntu|ubuntu-unity|ubuntucinnamon)
+        edubuntu|ubuntu-unity|ubuntu-cinnamon)
             # after 23.10
             echo ${SUPPORTED_VERSIONS[@]:5} daily-live ${EOL_VERSIONS[@]/#/eol-};;
     esac
@@ -1194,11 +1230,11 @@ function web_get() {
 
     # Test mode for ISO
     if [ "${OPERATION}" == "show" ]; then
-        test_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}"
+        check_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}"
         exit 0
-    elif [ "${OPERATION}" == "test" ]; then
+    elif [ "${OPERATION}" == "check" ]; then
         CHECK=$(web_check "${URL}" && echo 'PASS' || echo 'FAIL')
-        test_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}" "${CHECK}"
+        check_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}" "${CHECK}"
         exit 0
     elif [ "${OPERATION}" == "download" ]; then
         DIR="$(pwd)"
@@ -1210,7 +1246,7 @@ function web_get() {
     fi
 
     if [[ ${OS} != windows && ${OS} != macos && ${OS} != windows-server ]]; then
-        echo Downloading $(pretty_name "${OS}") ${RELEASE} ${EDITION:+ $EDITION}
+        echo Downloading ${PRETTY_NAME} ${RELEASE} ${EDITION:+ $EDITION}
         echo "- URL: ${URL}"
     fi
 
@@ -1270,7 +1306,7 @@ function zsync_get() {
     if [ "${OPERATION}" == "show" ]; then
         echo "${URL}"
         exit 0
-    elif [ "${OPERATION}" == "test" ]; then
+    elif [ "${OPERATION}" == "check" ]; then
         web_check "${URL}"
         exit 0
     elif command -v zsync &>/dev/null; then
@@ -1284,7 +1320,7 @@ function zsync_get() {
             echo "ERROR! Unable to create directory ${DIR}"
             exit 1
         fi
-        echo -e Downloading $(pretty_name "${OS}") ${RELEASE} ${EDITION+ ${EDITION}} from ${URL}'\n'
+        echo -e Downloading ${PRETTY_NAME} ${RELEASE} ${EDITION+ ${EDITION}} from ${URL}'\n'
         # Only force http for zsync - not earlier because we might fall through here
         if ! zsync "${URL/https/http}.zsync" -i "${DIR}/${OUT}" -o "${DIR}/${OUT}" 2>/dev/null; then
             echo "ERROR! Failed to download ${URL/https/http}.zsync"
@@ -1320,6 +1356,9 @@ function make_vm_config() {
       batocera)
         GUEST="batocera"
         IMAGE_TYPE="img";;
+      custom)
+        GUEST="${CUSTOM_OS}"
+        IMAGE_TYPE="${CUSTOM_IMAGE_TYPE}";;
       dragonflybsd)
         GUEST="dragonflybsd"
         IMAGE_TYPE="iso";;
@@ -1477,7 +1516,7 @@ EOF
             echo "secureboot=\"off\"" >> "${CONF_FILE}"
         fi
     fi
-    echo -e "\nTo start your $(pretty_name "${OS}") virtual machine run:"
+    echo -e "\nTo start your ${PRETTY_NAME} virtual machine run:"
     if [ ${OS} == "slint" ]; then
         echo -e "    quickemu --vm ${CONF_FILE}\nTo start Slint with braille support run:\n    quickemu --vm --braille --display sdl ${CONF_FILE}"
     else
@@ -2031,11 +2070,11 @@ function get_macos() {
     local chunkListSession=$(echo "$info" | grep 'expires' | grep 'chunklist')
 
     if [ "${OPERATION}" == "show" ]; then
-        test_result "${OS}" "${RELEASE}" "" "${downloadLink}"
+        check_result "${OS}" "${RELEASE}" "" "${downloadLink}"
         exit 0
-    elif [ "${OPERATION}" == "test" ]; then
+    elif [ "${OPERATION}" == "check" ]; then
         local CHECK=$(web_check "${downloadLink}" --header "Host: oscdn.apple.com" --header "Connection: close" --header "User-Agent: InternetRecovery/1.0" --header "Cookie: AssetToken=${downloadSession}" && echo 'PASS' || echo 'FAIL')
-        test_result "${OS}" "${RELEASE}" "" "${downloadLink}" "${CHECK}"
+        check_result "${OS}" "${RELEASE}" "" "${downloadLink}" "${CHECK}"
         exit 0
     elif [ "${OPERATION}" == "download" ]; then
         echo "Downloading macOS ${RELEASE} from ${downloadLink}"
@@ -2530,7 +2569,7 @@ function get_ubuntu() {
         HASH=$(cut_1 <<<${DATA})
     fi
     if [ -z $ISO ] || [ -z $HASH ]; then
-        echo "$(pretty_name $OS) ${RELEASE} is currently unavailable. Please select other OS/Release combination"
+        echo "${PRETTY_NAME} ${RELEASE} is currently unavailable. Please select other OS/Release combination"
         exit 1
     fi
     if [[ "${RELEASE}" == "daily"* ]] || [ "${RELEASE}" == "dvd" ]; then
@@ -3079,7 +3118,7 @@ function download_windows_server() {
     # Limit untrusted size for input validation
     iso_download_link="$(echo "$iso_download_link" | head -c 1024)"
 
-    echo "Downloading $(pretty_name "${OS}") ${PRETTY_RELEASE} (${LANG}): $iso_download_link"
+    echo "Downloading ${PRETTY_NAME} ${PRETTY_RELEASE} (${LANG}): $iso_download_link"
 
     # Use highest TLS version for endpoints that support it
     case "$iso_download_link" in
@@ -3241,9 +3280,14 @@ function get_windows() {
     fi
 }
 
-function open_url() {
-    local URL="$1";
-    xdg-open $URL || sensible-browser $URL || x-www-browser $URL || gnome-open $URL;
+function open_homepage() {
+    if [ -z "$(os_info "${1}")" ]; then
+        error_specify_os
+    else
+        URL="$(os_info "${1}" | cut -d'|' -f4)"
+        xdg-open $URL || sensible-browser $URL || x-www-browser $URL || gnome-open $URL
+        exit 0
+    fi
 }
 
 function create_vm() {
@@ -3322,10 +3366,8 @@ Arguments:
  --version        (-v)                : Show version
  --help           (-h)                : Show this help message
 -------------- For testing & development ---------------------
- --url            (-u) <os> <re> [ed] : Show download URL for an OS release/edition
- --url-all       (-ua) <os>           : Show all download URLs for an OS
- --check          (-c) <os> [re] [ed] : Check download an OS release/edition is available
- --check-all     (-ca) <os>           : Check all downloads for an OS are available
+ --url            (-u) [os] [re] [ed] : Show download URL for what specified or All
+ --check          (-c) [os] [re] [ed] : Check download for what specified or All
  --list           (-l)                : List all supported systems in plain text
  --list-csv      (-lc)                : List all supported systems in csv format
  --list-json     (-lj)                : List all supported systems in json format
@@ -3368,12 +3410,8 @@ case "${1}" in
     create_config "${@}"
     ;;
   '--open-homepage'|'-o')
-    if [ -z "$(os_info "${2}")" ]; then
-        error_specify_os
-    else
-        open_url "$(os_info "${2}" | cut -d'|' -f4)"
-        exit 0
-    fi
+    shift
+    open_homepage
     ;;
   '--version'|'-v')
     WHERE=$(dirname "${BASH_SOURCE[0]}")
@@ -3387,39 +3425,34 @@ case "${1}" in
   '--url'|'-u')
     OPERATION="show"
     shift
-    ;;
-  '--url-all'|'-ua')
-    OPERATION="show"
-    shift
-    # if no OS is specified, list all URLs for all supported OSes
     if [ -z "${1}" ]; then
         for OS in $(os_support); do
-            (test_all "${OS}")
+            (check_all "${OS}") &
         done
-    else
-        test_all "${1}"
+        wait
+        exit 0
+    elif [ -z "${2}" ]; then
+        check_all "${1}"
+        exit 0
     fi
-    exit 0
     ;;
   '--check'|'-c')
-    OPERATION="test"
+    OPERATION="check"
     shift
-    ;;
-  '--check-all'|'-ca')
-    OPERATION="test"
-    shift
-    # if no OS is specified, check all URLs for all supported OSes
     if [ -z "${1}" ]; then
         for OS in $(os_support); do
-            (test_all "${OS}")
+            (check_all "${OS}") &
         done
-    else
-        test_all "${1}"
+        wait
+        exit 0
+    elif [ -z "${2}" ]; then
+        check_all "${1}"
+        exit 0
     fi
-    exit 0
     ;;
     #TODO: Argument without dashes should be DEPRECATED!
   '--list-csv'|'-lc'|'list'|'list_csv'|'lc')
+    echo "Pretty Name,OS,Release,Option,Downloader,PNG,SVG,Based on,Credentials,Homepage,Info"
     list_csv
     ;;
     #TODO: Argument without dashes should be DEPRECATED!
@@ -3428,6 +3461,9 @@ case "${1}" in
     ;;
   '--list'|'-l')
     list_supported
+    ;;
+  -*)
+    error_not_supported_argument
     ;;
 esac
 
