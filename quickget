@@ -484,7 +484,8 @@ function check_all() {
                 check_result "${OS}" "${RELEASE}" "${EDITION}" "${URL}" "${CHECK}"
             fi
         fi
-    done
+    done &
+    wait
     exit 0
 }
 
@@ -3426,10 +3427,13 @@ case "${1}" in
     shift
     if [ -z "${1}" ]; then
         for OS in $(os_support); do
-            (check_all "${OS}")
+            (check_all "${OS}") &
         done
+        wait
+        exit 0
     elif [ -z "${2}" ]; then
         check_all "${1}"
+        exit 0
     fi
     ;;
   '--check'|'-c')
@@ -3437,10 +3441,13 @@ case "${1}" in
     shift
     if [ -z "${1}" ]; then
         for OS in $(os_support); do
-            (check_all "${OS}")
+            (check_all "${OS}") &
         done
+        wait
+        exit 0
     elif [ -z "${2}" ]; then
         check_all "${1}"
+        exit 0
     fi
     ;;
     #TODO: Argument without dashes should be DEPRECATED!
